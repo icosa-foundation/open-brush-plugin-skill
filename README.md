@@ -1,6 +1,6 @@
 # Open Brush Plugin Skill for Claude Code
 
-A Claude Code skill for creating and modifying Lua plugins for Open Brush. This skill provides full access to the Open Brush Lua API documentation and assists with plugin development.
+An [Agent Skill](https://agentskills.io) for Claude Code, Codex etc used for creating and modifying Lua plugins for Open Brush. This skill provides full access to the Open Brush Lua API documentation and assists with plugin development.
 
 ## Features
 
@@ -57,7 +57,7 @@ Complete API reference for all Lua classes:
 - Writing different plugin types (Pointer, Symmetry, Tool, Background)
 - Example walkthroughs and best practices
 
-### Example Plugins (`examples/`)
+### Example Plugins (`Examples/`)
 
 Real Open Brush plugins demonstrating different techniques:
 - BackgroundScript examples
@@ -87,7 +87,7 @@ The documentation in this repo is automatically synced from the [official Open B
 All documentation is included locally in this skill:
 - **API Reference**: `./LuaDocs/`
 - **Tutorials**: `./MainDocs/`
-- **Examples**: `./examples/`
+- **Examples**: `./Examples/`
 - **Modules**: `./LuaModules/`
 
 External references:

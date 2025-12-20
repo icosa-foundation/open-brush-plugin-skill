@@ -10,153 +10,59 @@ This skill helps you create and modify Lua plugins for Open Brush, a VR painting
 ## Quick Start
 
 ### Plugin File Structure
-Open Brush Lua plugins are `.lua` files placed in the Open Brush plugins directory. A basic plugin structure:
+
+**CRITICAL: Plugin Naming Convention**
+Plugins MUST be named with the correct prefix or Open Brush won't recognize them:
+- **PointerScript**.PluginName.lua (e.g., PointerScript.Wobble.lua)
+- **SymmetryScript**.PluginName.lua (e.g., SymmetryScript.ManyAround.lua)
+- **ToolScript**.PluginName.lua (e.g., ToolScript.Circle.lua)
+- **BackgroundScript**.PluginName.lua (e.g., BackgroundScript.Lines.lua)
+
+A basic plugin structure:
 
 ```lua
--- Plugin metadata
---[[
-  Plugin Name: My Plugin
-  Description: What this plugin does
-  Author: Your Name
-]]
+-- Plugin metadata (in Settings table)
+Settings = {
+  description = "What this plugin does"
+}
 
--- Initialization
-function init()
-  -- Setup code runs once when plugin loads
+-- Optional parameters (exposed as UI sliders)
+Parameters = {
+  speed = {label = "Speed", type = "float", min = 1, max = 100, default = 50}
+}
+
+-- Main function (required) - runs every frame
+function Main()
+  -- Your plugin logic here
+  -- Return value determines plugin type (Transform, Path, PathList, or nothing)
 end
 
--- Update loop (optional)
-function update()
-  -- Runs every frame
+-- Optional: runs once when plugin starts
+function Start()
+  -- Setup code
 end
 
--- Custom functions
-function myFunction()
-  -- Your plugin logic
-end
-```
-
-### API Documentation
-**Primary Reference**: https://icosa.gitbook.io/open-brush-plugin-scripting-docs
-
-The API is organized into these major categories:
-
-#### Core Objects
-- `App` - Application-level functions and settings
-- `Sketch` - Access and modify the current sketch
-- `User` - User position, orientation, and input
-- `Tool` - Current brush/tool settings
-- `Headset` - VR headset information
-- `Spectator` - Spectator camera control
-
-#### Spatial & Transformation
-- `Transform` - Position, rotation, and scale
-- `Vector2`, `Vector3`, `Vector4` - Vector math
-- `Rotation` - Quaternion rotations
-- `Path`, `Path2d` - Path manipulation
-- `Matrix` - Matrix transformations
-
-#### Visual Elements
-- `Brush` - Brush types and settings
-- `Stroke` - Individual brush strokes
-- `Layer` - Layer management
-- `Group` - Grouped objects
-- `Color` - Color manipulation
-- `Image`, `Video` - Media references
-- Corresponding `List` variants (StrokeList, LayerList, etc.)
-
-#### Environment & Scene
-- `Environment` - Skybox, lighting, fog
-- `CameraPath` - Camera path recording
-- `Guide` - Reference guides and grids
-- `Model` - 3D model references
-- `Wand` - Controller/wand state
-
-#### Advanced Features
-- `Selection` - Object selection
-- `Symmetry` - Symmetry modes and settings (SymmetryMode, SymmetryPointType, SymmetrySettings, SymmetryWallpaperType)
-- `Easing` - Easing functions for animation
-- `Timer` - Timing and delays
-- `Random` - Random number generation
-- `Math` - Extended math functions
-- `Visualizer`, `Waveform` - Audio visualization
-
-#### Utilities
-- `Svg` - SVG import/export
-- `Webrequest` - HTTP requests
-
-## Common Plugin Patterns
-
-### Accessing the Current Sketch
-```lua
-local sketch = App.sketch()
-local strokes = sketch:strokes()
-```
-
-### Working with Strokes
-```lua
-function processAllStrokes()
-  local strokes = App.sketch():strokes()
-  for i = 0, strokes:count() - 1 do
-    local stroke = strokes:item(i)
-    -- Process stroke
-  end
+-- Optional: runs once when plugin ends
+function End()
+  -- Cleanup code
 end
 ```
 
-### Getting User Position/Rotation
-```lua
-local userPos = User.position()
-local userRot = User.rotation()
-```
+### Where to Find Information
 
-### Creating Custom Tools/Commands
-```lua
-function onToolTrigger()
-  -- Respond to controller trigger
-  local controlPoints = {}
-  -- Build stroke data
-  App.sketch():createStroke(controlPoints)
-end
-```
+**All documentation is included locally. Consult the right resource for your needs:**
 
-### Using Timers
-```lua
-local myTimer = Timer.new()
-myTimer:start()
+**When creating a new plugin:**
+1. Read `./INSTRUCTIONS.md` first for critical API syntax rules and plugin structure
+2. Check `./Examples/` for similar working code (PointerScript.*, SymmetryScript.*, ToolScript.*, BackgroundScript.*)
+3. Read `MainDocs/example-plugins/` for explanations of what example plugins do
+4. Read `MainDocs/writing-plugins/` for step-by-step tutorials on each plugin type
 
-function update()
-  if myTimer:elapsed() > 5.0 then
-    -- Do something after 5 seconds
-    myTimer:reset()
-  end
-end
-```
+**When you need API details:**
+1. Check `./LuaModules/__autocomplete.lua` for complete list of available classes/methods/properties
+2. Read specific `./LuaDocs/` files (app.md, brush.md, vector3.md, path.md, etc.) for detailed API documentation
 
-### Working with Selections
-```lua
-local selection = App.sketch():selection()
-if selection:count() > 0 then
-  -- Process selected items
-end
-```
-
-## Best Practices
-
-1. **Use init() for Setup**: Put initialization code in the `init()` function
-2. **Optimize update()**: Keep the `update()` function lightweight as it runs every frame
-3. **Check for nil**: Always validate objects exist before accessing them
-4. **Use Local Variables**: Local variables are faster than global ones
-5. **Comment Your Code**: Explain what your plugin does and any complex logic
-6. **Test Incrementally**: Test each function as you build it
-7. **Handle Errors**: Use `pcall()` for operations that might fail
-
-## Debugging Tips
-
-- Use `print()` statements to log values to the Open Brush console
-- Check the Open Brush log files for error messages
-- Test with simple operations first before adding complexity
-- Verify API calls with the documentation
+**External reference** (for context only): https://icosa.gitbook.io/open-brush-plugin-scripting-docs
 
 ## Instructions for AI Agents
 
@@ -195,16 +101,19 @@ Parameters = {
 **Four Plugin Types** (determined by return value from `Main()`):
 
 1. **Pointer Plugin** - Returns single `Transform`
-   - Modifies brush pointer position while user draws
-   - Changes position/rotation of current stroke in real-time
+   - Modifies the user's primary brush pointer position while user draws
 
 2. **Symmetry Plugin** - Returns `Path` or list of `Transform`
-   - Creates multiple brush pointers
-   - Each transform = one additional stroke
+   - Controls multiple brush pointers while the user draws
+   - Each transform generates one additional stroke
+   - Important to understand its special use of coordinate spaces (especially the symmetry widget)
+   - Can be combined with Pointer plugins
+   - Overrides and replaces mirror or multimirror symmetry modes
 
 3. **Tool Plugin** - Returns `Path` or `PathList`
-   - Generates complete strokes in one action
+   - Generates a complete stroke or strokes in one action based on the users actions
    - Typically triggered on button press/release
+   - Active mirror, multimirror or symmetry plugin modes are automatically applied to the output
 
 4. **Background Plugin** - Returns nothing
    - Runs autonomously every frame
@@ -215,77 +124,64 @@ Parameters = {
 - Understand coordinate spaces - default varies by plugin type (check Settings.space)
 - Transform scale component affects stroke width/thickness
 
-**For complete details, examples, and edge cases, read `./instructions.md`**
+**For complete details, examples, and edge cases, read `./INSTRUCTIONS.md`**
 
+### Common Gotchas
 
-### Accessing Documentation
+1. **Coordinate Spaces**: By default, Pointer/Tool plugins use `space="pointer"` (relative to brush hand) while Symmetry plugins use the symmetry widget as origin. Override with `Settings.space="canvas"` or `Settings.space="pointer"`.
 
-All documentation is included locally in this skill:
+2. **Path Smoothing**: Open Brush smooths paths for hand-drawn strokes. For geometric shapes, add extra points with `Path:SubdivideSegments(n)` to prevent rounding.
 
-- **`./LuaDocs/`** - Complete API reference (app.md, stroke.md, vector3.md, etc.)
-- **`./MainDocs/`** - Tutorials and guides (writing-plugins/, example-plugins/)
-- **`./examples/`** - Real plugin examples (BackgroundScript.*, PointerScript.*, SymmetryScript.*, ToolScript.*)
-- **`./LuaModules/__autocomplete.lua`** - Complete list of all valid API classes, methods, and properties
+3. **Multiple Active Plugins**: You can run multiple Background plugins simultaneously, but only one of each other type (Pointer/Symmetry/Tool).
 
-Use the Read tool to access any documentation file directly.
-
-**External references** (for context only):
-- GitHub: [API Docs](https://github.com/icosa-foundation/open-brush-plugin-scripting-docs), [Tutorials](https://github.com/icosa-foundation/open-brush-docs)
-- Web viewer: https://icosa.gitbook.io/open-brush-plugin-scripting-docs
-
-### Plugin Development Guidelines
+### Plugin Development Workflow
 
 When helping users with Open Brush Lua plugins:
 
-1. **Verify API calls** - Check the documentation before using functions to ensure they exist and understand their parameters
-2. **Ask clarifying questions** about what the plugin should do before writing code
-3. **Follow Lua best practices** - use local variables, proper indentation, clear naming
+1. **Check example plugins for similar functionality** - Consult both `./Examples/` (actual code) and `MainDocs/example-plugins/` (explanations). The examples demonstrate working patterns.
+2. **Verify API calls** - Check `./LuaModules/__autocomplete.lua` before using any API methods or properties
+3. **Ask clarifying questions** about what the plugin should do before writing code
 4. **Provide complete, working examples** that users can copy and test
-5. **Explain the code** - add comments and describe what each section does
-6. **Suggest testing approaches** - how to verify the plugin works
-7. **Consider performance** - warn if operations might be slow (e.g., processing thousands of strokes every frame)
-8. **Reference the right docs** - API docs for function signatures, main docs for concepts and tutorials
+5. **Consider performance** - Warn if operations might be slow (e.g., processing thousands of strokes every frame)
 
 ## Example Plugin Templates
 
-### Simple Stroke Counter
+### Simple Stroke Counter (Background Plugin)
 ```lua
---[[
-  Plugin Name: Stroke Counter
-  Description: Counts total strokes in sketch
-]]
+Settings = {
+  description = "Counts total strokes in sketch"
+}
 
-function init()
-  print("Stroke Counter initialized")
-end
+local hasCountedOnce = false
 
-function countStrokes()
-  local sketch = App.sketch()
-  local strokes = sketch:strokes()
-  local count = strokes:count()
-  print("Total strokes: " .. count)
-  return count
+function Main()
+  if not hasCountedOnce then
+    local sketch = App.sketch()
+    local strokes = sketch:strokes()
+    local count = strokes:count()
+    print("Total strokes: " .. count)
+    hasCountedOnce = true
+  end
 end
 ```
 
-### Position Logger
+### Position Logger (Background Plugin)
 ```lua
---[[
-  Plugin Name: Position Logger
-  Description: Logs user position every 2 seconds
-]]
+Settings = {
+  description = "Logs user position every 2 seconds"
+}
 
-local timer = Timer.new()
+local timer = Timer:New()
 
-function init()
-  timer:start()
+function Start()
+  timer:Start()
 end
 
-function update()
-  if timer:elapsed() > 2.0 then
+function Main()
+  if timer:Elapsed() > 2.0 then
     local pos = User.position()
     print(string.format("User at: %.2f, %.2f, %.2f", pos.x, pos.y, pos.z))
-    timer:reset()
+    timer:Reset()
   end
 end
 ```
