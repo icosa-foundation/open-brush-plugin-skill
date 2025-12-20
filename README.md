@@ -5,10 +5,10 @@ A Claude Code skill for creating and modifying Lua plugins for Open Brush. This 
 ## Features
 
 - Complete Open Brush Lua API documentation included locally
-- Plugin templates and common patterns
-- Code examples and best practices
+- Real plugin examples from the Open Brush project
+- Tutorials and guides for writing plugins
+- Utility modules and helper libraries
 - Fast local documentation access
-- Optional MCP server integration for enhanced performance
 
 ## Installation
 
@@ -22,7 +22,7 @@ The skill will be automatically available in Claude Code after installation.
 
 ## Usage
 
-Once installed, Claude will automatically use this skill when you:
+Once installed, AI agents will automatically use this skill when you:
 
 - Ask to create an Open Brush plugin
 - Work with Lua scripts for Open Brush
@@ -40,9 +40,9 @@ Once installed, Claude will automatically use this skill when you:
 
 ## What's Included
 
-### API Documentation
+### API Documentation (`LuaDocs/`)
 
-The `docs/` directory contains the complete Open Brush Lua API reference:
+Complete API reference for all Lua classes:
 
 - **Core Objects**: App, Sketch, User, Tool, Headset, Spectator
 - **Spatial & Transformation**: Transform, Vector2/3/4, Rotation, Path, Matrix
@@ -51,9 +51,25 @@ The `docs/` directory contains the complete Open Brush Lua API reference:
 - **Advanced Features**: Selection, Symmetry, Easing, Timer, Random, Math
 - **Utilities**: Svg, Webrequest, Visualizer, Waveform
 
-### Examples
+### Tutorials & Guides (`MainDocs/`)
 
-The `examples/` directory contains sample plugins demonstrating common patterns and techniques.
+- Getting started with plugin development
+- Writing different plugin types (Pointer, Symmetry, Tool, Background)
+- Example walkthroughs and best practices
+
+### Example Plugins (`examples/`)
+
+Real Open Brush plugins demonstrating different techniques:
+- BackgroundScript examples
+- PointerScript examples
+- SymmetryScript examples
+- ToolScript examples
+
+### Utility Modules (`LuaModules/`)
+
+- `__autocomplete.lua` - Complete list of valid API classes, methods, and properties
+- `lume.lua` - Utility library
+- Helper modules for plugin development
 
 ## Updating
 
@@ -66,21 +82,17 @@ git pull
 
 The documentation in this repo is automatically synced from the [official Open Brush plugin scripting docs](https://github.com/icosa-foundation/open-brush-plugin-scripting-docs).
 
-## Optional: Enhanced Performance with MCP
-
-For advanced users, you can optionally configure the GitBook MCP server for faster documentation queries:
-
-```bash
-claude mcp add --transport http gitbook-openbrush https://icosa.gitbook.io/open-brush-plugin-scripting-docs/~gitbook/mcp
-```
-
-This enables structured queries across all documentation but is not required for normal use.
-
 ## Documentation Sources
 
-- **This Skill (Local)**: Fast access to API documentation included in `./docs/`
-- **API Reference**: https://github.com/icosa-foundation/open-brush-plugin-scripting-docs
-- **Tutorials & Guides**: https://github.com/icosa-foundation/open-brush-docs
+All documentation is included locally in this skill:
+- **API Reference**: `./LuaDocs/`
+- **Tutorials**: `./MainDocs/`
+- **Examples**: `./examples/`
+- **Modules**: `./LuaModules/`
+
+External references:
+- **API Docs (GitHub)**: https://github.com/icosa-foundation/open-brush-plugin-scripting-docs
+- **Tutorials (GitHub)**: https://github.com/icosa-foundation/open-brush-docs
 - **Web Viewer**: https://icosa.gitbook.io/open-brush-plugin-scripting-docs
 
 ## Contributing

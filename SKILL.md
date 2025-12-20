@@ -158,36 +158,80 @@ end
 - Test with simple operations first before adding complexity
 - Verify API calls with the documentation
 
-## Instructions for Claude
+## Instructions for AI Agents
+
+### Critical API Rules
+
+**MOST IMPORTANT**: Only use APIs listed in `./LuaModules/__autocomplete.lua`. NEVER invent methods or properties. If unsure, say "I'm unsure - let me check the API documentation" and read `__autocomplete.lua`. Favor the Open Brush API over standard Lua library functions.
+
+**Core Syntax Rules**:
+- Constructors: `ClassName:New(...)` (capital N, always use colon)
+- Properties: `object.property` (dot notation)
+- Methods: `object:method()` (colon notation)
+- API classes start with capital letters (e.g., `Vector3`, `Transform`, `Path`)
+- Methods do NOT return self - no method chaining
+- Use `Math` (capital M) library, not lua's `math`
+
+**Plugin Structure**:
+All plugins define:
+- `Main()` - called every frame (required)
+- `Start()` - called when plugin begins (optional)
+- `End()` - called when plugin ends (optional)
+- `Settings` table - plugin metadata (optional)
+- `Parameters` table - UI sliders for user input (optional)
+
+```lua
+Settings = {
+  description = "Plugin description",
+  space = "pointer" -- or "canvas", "world", etc.
+}
+
+Parameters = {
+  speed = {label = "Speed", type = "float", min = 1, max = 100, default = 50}
+}
+-- Access as: Parameters.speed
+```
+
+**Four Plugin Types** (determined by return value from `Main()`):
+
+1. **Pointer Plugin** - Returns single `Transform`
+   - Modifies brush pointer position while user draws
+   - Changes position/rotation of current stroke in real-time
+
+2. **Symmetry Plugin** - Returns `Path` or list of `Transform`
+   - Creates multiple brush pointers
+   - Each transform = one additional stroke
+
+3. **Tool Plugin** - Returns `Path` or `PathList`
+   - Generates complete strokes in one action
+   - Typically triggered on button press/release
+
+4. **Background Plugin** - Returns nothing
+   - Runs autonomously every frame
+   - Draws strokes using explicit `Draw()` methods
+
+**Important Constraints**:
+- Brush color/type/size cannot change during a stroke (only between strokes)
+- Understand coordinate spaces - default varies by plugin type (check Settings.space)
+- Transform scale component affects stroke width/thickness
+
+**For complete details, examples, and edge cases, read `./instructions.md`**
+
 
 ### Accessing Documentation
 
-**IMPORTANT**: This skill includes local API documentation for fast access.
+All documentation is included locally in this skill:
 
-**Documentation Strategy:**
+- **`./LuaDocs/`** - Complete API reference (app.md, stroke.md, vector3.md, etc.)
+- **`./MainDocs/`** - Tutorials and guides (writing-plugins/, example-plugins/)
+- **`./examples/`** - Real plugin examples (BackgroundScript.*, PointerScript.*, SymmetryScript.*, ToolScript.*)
+- **`./LuaModules/__autocomplete.lua`** - Complete list of all valid API classes, methods, and properties
 
-1. **Use Local Docs (Primary)** - API documentation is included in this skill:
-   - Located in the `./docs/` directory relative to this SKILL.md file
-   - Use the Read tool to access documentation files directly
-   - Examples:
-     - `./docs/app.md` - App class documentation
-     - `./docs/stroke.md` - Stroke class documentation
-     - `./docs/vector3.md` - Vector3 class documentation
+Use the Read tool to access any documentation file directly.
 
-2. **Optional: MCP Server (Advanced)** - For enhanced documentation access:
-   - Users can optionally configure the GitBook MCP server for structured queries
-   - Server name: `gitbook-openbrush`
-   - Setup instructions in README.md
-
-3. **Fallback: Remote Fetch** - If local docs are missing or outdated:
-   - Fetch from `https://raw.githubusercontent.com/icosa-foundation/open-brush-plugin-scripting-docs/main/docs/{class}.md`
-   - For tutorials: `https://raw.githubusercontent.com/icosa-foundation/open-brush-docs/main/{path}`
-
-**Documentation Sources:**
-- **API Reference (Local)**: `./docs/` directory
-- **API Reference (GitHub)**: https://github.com/icosa-foundation/open-brush-plugin-scripting-docs
-- **Tutorials & Guides**: https://github.com/icosa-foundation/open-brush-docs
-- **Web Viewer**: https://icosa.gitbook.io/open-brush-plugin-scripting-docs
+**External references** (for context only):
+- GitHub: [API Docs](https://github.com/icosa-foundation/open-brush-plugin-scripting-docs), [Tutorials](https://github.com/icosa-foundation/open-brush-docs)
+- Web viewer: https://icosa.gitbook.io/open-brush-plugin-scripting-docs
 
 ### Plugin Development Guidelines
 
