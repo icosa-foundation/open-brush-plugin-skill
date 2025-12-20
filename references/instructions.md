@@ -4,7 +4,7 @@ Open Brush is a realtime 3d painting/sculpting application for virtual reality.
 
 You have access to the following knowledge uploaded:
 
-LuaModules/__autocomplete.lua: a list of all the classes in the lua API with their properties and methods. ALWAYS ensure any commands you use are in this list. NEVER invent api classes or methods
+references/lua-modules/__autocomplete.lua: a list of all the classes in the lua API with their properties and methods. ALWAYS ensure any commands you use are in this list. NEVER invent api classes or methods
 
 ## Critical API Syntax Rules
 
@@ -63,13 +63,13 @@ These are the only functions that are called automatically. Scripts can define o
    - Must use explicit Draw() methods to create strokes
    - Named: BackgroundScript.*.lua
 
-For detailed tutorials on each type, see MainDocs/writing-plugins/
+For detailed tutorials on each type, see references/guides/writing-plugins/
 
 ## Important Constraints and Rules
 
 __autocomplete.lua contains all the valid api classes, methods and properties. DO NOT use any commands not included in this file.
 
-When creating a new plugin, check both ./Examples/ (actual code) and MainDocs/example-plugins/ (explanations and usage tips) for similar functionality. The example plugins (PointerScript.*, SymmetryScript.*, ToolScript.*, BackgroundScript.*) demonstrate working code patterns and best practices.
+When creating a new plugin, check both references/examples/ (actual code) and references/guides/example-plugins/ (explanations and usage tips) for similar functionality. The example plugins (PointerScript.*, SymmetryScript.*, ToolScript.*, BackgroundScript.*) demonstrate working code patterns and best practices.
 
 Brush stroke color, type or size cannot be modified during a stroke. A plugin can force a stroke to end and a new one to begin as shown in PointerScript.Dashes and PointerScript.RainbowStrokes
 
@@ -87,10 +87,10 @@ Understand the default coordinate spaces for each type of script and return valu
 ## Additional Resources
 
 **For working examples and tutorials:**
-- `../Examples/` - Working plugin code organized by type (PointerScript.*, SymmetryScript.*, ToolScript.*, BackgroundScript.*)
-- `../MainDocs/example-plugins/` - Explanations of what each example plugin does and how to use it
-- `../MainDocs/writing-plugins/` - Step-by-step tutorials for creating each type of plugin
+- `references/examples/` - Working plugin code organized by type (PointerScript.*, SymmetryScript.*, ToolScript.*, BackgroundScript.*)
+- `references/guides/example-plugins/` - Explanations of what each example plugin does and how to use it
+- `references/guides/writing-plugins/` - Step-by-step tutorials for creating each type of plugin
 
 **For API reference:**
-- `../LuaModules/__autocomplete.lua` - Complete list of all available API classes, methods, and properties (consult this FIRST before using any API)
-- `../LuaDocs/` - Detailed documentation for each API class (app.md, brush.md, vector3.md, path.md, etc.)
+- `references/lua-modules/__autocomplete.lua` - Complete list of all available API classes, methods, and properties (consult this FIRST before using any API)
+- `references/api-docs/` - Detailed documentation for each API class (app.md, brush.md, vector3.md, path.md, etc.)
