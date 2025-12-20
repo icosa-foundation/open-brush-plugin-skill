@@ -50,17 +50,20 @@ end
 
 ### Where to Find Information
 
-**All documentation is included locally. Consult the right resource for your needs:**
+**IMPORTANT: All documentation files are located inside this skill's directory.**
+The skill directory is typically at: `~/.claude/skills/open-brush-plugin-skill/` (or `C:\Users\USERNAME\.claude\skills\open-brush-plugin-skill\` on Windows)
+
+**All paths below are relative to the skill directory, NOT the user's project directory.**
 
 **When creating a new plugin:**
-1. Read `./INSTRUCTIONS.md` first for critical API syntax rules and plugin structure
-2. Check `./Examples/` for similar working code (PointerScript.*, SymmetryScript.*, ToolScript.*, BackgroundScript.*)
-3. Read `MainDocs/example-plugins/` for explanations of what example plugins do
-4. Read `MainDocs/writing-plugins/` for step-by-step tutorials on each plugin type
+1. Read `INSTRUCTIONS.md` (in skill root) for critical API syntax rules and plugin structure
+2. Check `Examples/` directory (in skill root) for similar working code (PointerScript.*, SymmetryScript.*, ToolScript.*, BackgroundScript.*)
+3. Read `MainDocs/example-plugins/` (in skill root) for explanations of what example plugins do
+4. Read `MainDocs/writing-plugins/` (in skill root) for step-by-step tutorials on each plugin type
 
 **When you need API details:**
-1. Check `./LuaModules/__autocomplete.lua` for complete list of available classes/methods/properties
-2. Read specific `./LuaDocs/` files (app.md, brush.md, vector3.md, path.md, etc.) for detailed API documentation
+1. Check `LuaModules/__autocomplete.lua` (in skill root) for complete list of available classes/methods/properties
+2. Read specific files in `LuaDocs/` directory (in skill root): app.md, brush.md, vector3.md, path.md, etc.
 
 **External reference** (for context only): https://icosa.gitbook.io/open-brush-plugin-scripting-docs
 
@@ -124,7 +127,7 @@ Parameters = {
 - Understand coordinate spaces - default varies by plugin type (check Settings.space)
 - Transform scale component affects stroke width/thickness
 
-**For complete details, examples, and edge cases, read `./INSTRUCTIONS.md`**
+**For complete details, examples, and edge cases, read `INSTRUCTIONS.md` in the skill directory**
 
 ### Common Gotchas
 
@@ -138,8 +141,8 @@ Parameters = {
 
 When helping users with Open Brush Lua plugins:
 
-1. **Check example plugins for similar functionality** - Consult both `./Examples/` (actual code) and `MainDocs/example-plugins/` (explanations). The examples demonstrate working patterns.
-2. **Verify API calls** - Check `./LuaModules/__autocomplete.lua` before using any API methods or properties
+1. **Check example plugins for similar functionality** - Consult both `Examples/` directory in the skill (actual code) and `MainDocs/example-plugins/` in the skill (explanations). The examples demonstrate working patterns.
+2. **Verify API calls** - Check `LuaModules/__autocomplete.lua` in the skill directory before using any API methods or properties
 3. **Ask clarifying questions** about what the plugin should do before writing code
 4. **Provide complete, working examples** that users can copy and test
 5. **Consider performance** - Warn if operations might be slow (e.g., processing thousands of strokes every frame)
