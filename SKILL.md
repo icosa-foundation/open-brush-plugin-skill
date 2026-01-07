@@ -115,6 +115,7 @@ Parameters = {
 
 3. **Tool Plugin** - Returns `Path` or `PathList`
    - Generates a complete stroke or strokes in one action based on the users actions
+   - Return the stroke data as Path or PathList in Main() - do not use Path:Draw() etc directly
    - Typically triggered on button press/release
    - Active mirror, multimirror or symmetry plugin modes are automatically applied to the output
 
