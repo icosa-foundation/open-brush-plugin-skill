@@ -101,7 +101,7 @@ Parameters = {
 -- Access as: Parameters.speed
 ```
 
-**Four Plugin Types** (determined by return value from `Main()`):
+**Four Plugin Types**:
 
 1. **Pointer Plugin** - Returns single `Transform`
    - Modifies the user's primary brush pointer position while user draws
@@ -136,7 +136,7 @@ Parameters = {
 
 2. **Path Smoothing**: Open Brush smooths paths for hand-drawn strokes. For geometric shapes, add extra points with `Path:SubdivideSegments(n)` to prevent rounding.
 
-3. **Multiple Active Plugins**: You can run multiple Background plugins simultaneously, but only one of each other type (Pointer/Symmetry/Tool).
+3. **Multiple Active Plugins**: You can run multiple Background plugins simultaneously, but only one of each other type (Pointer/Symmetry/Tool). You can combine the effects of Pointer and Symmetry. Or Symmetry and Tool.
 
 ### Plugin Development Workflow
 
