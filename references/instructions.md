@@ -71,7 +71,10 @@ __autocomplete.lua contains all the valid api classes, methods and properties. D
 
 When creating a new plugin, check both references/examples/ (actual code) and references/guides/example-plugins/ (explanations and usage tips) for similar functionality. The example plugins (PointerScript.*, SymmetryScript.*, ToolScript.*, BackgroundScript.*) demonstrate working code patterns and best practices.
 
-Brush stroke color, type or size cannot be modified during a stroke. A plugin can force a stroke to end and a new one to begin as shown in PointerScript.Dashes and PointerScript.RainbowStrokes
+Brush stroke type or size cannot be modified during a stroke. A plugin can force a stroke to end and a new one to begin as shown in PointerScript.Dashes and PointerScript.RainbowStrokes
+To create strokes that change color during their length, you can't just change the base color.
+Instead you can set the live drawing color for all pointers via Symmetry:SetColorOverrides(color) combined with Symmetry:ClearColorOverrideModes(ColorOverrideMode.Replace)
+For non-realtime drawing DrawStrokes() etc have variants that accepts a separate color array.
 
 Brush strokes and pointer positions make use of the position and rotation aspects of the transform. However the scale component only affects the stroke size (generally width or thickness of the stroke).
 

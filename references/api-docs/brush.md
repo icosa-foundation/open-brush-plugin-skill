@@ -82,6 +82,52 @@ Applies the current jitter settings to the brush color
 
 
 
+### Brush:SetColorOverride(color)
+
+Sets the brush override color
+
+**Returns:** nil 
+
+
+**Parameters:**
+
+<table data-full-width="false">
+<thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+<tbody><tr><td>color</td><td><a href="color.md">Color</a></td><td></td><td>The color to set</td></tr></tbody></table>
+
+
+
+
+#### Example
+
+<pre class="language-lua"><code class="lang-lua"><strong>Brush:SetColorOverride(Color.red)</strong></code></pre>
+
+
+
+
+### Brush:SetColorOverrideMode(mode)
+
+Sets the brush override color mode
+
+**Returns:** nil 
+
+
+**Parameters:**
+
+<table data-full-width="false">
+<thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+<tbody><tr><td>mode</td><td><a href="coloroverridemode.md">ColorOverrideMode</a></td><td></td><td>The mode to set</td></tr></tbody></table>
+
+
+
+
+#### Example
+
+<pre class="language-lua"><code class="lang-lua"><strong>Brush:SetColorOverrideMode(ColorOverrideMode.Blend)</strong></code></pre>
+
+
+
+
 ### Brush:ResizeHistory(size)
 
 Clears the history and sets it's size

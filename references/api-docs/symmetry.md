@@ -218,6 +218,29 @@ Adds a color to the list of symmetry pointer colors
 
 
 
+### Symmetry:SetColors(color)
+
+Sets all symmetry pointer colors to a single color
+
+**Returns:** nil 
+
+
+**Parameters:**
+
+<table data-full-width="false">
+<thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+<tbody><tr><td>color</td><td><a href="color.md">Color</a></td><td></td><td>The color to set</td></tr></tbody></table>
+
+
+
+
+#### Example
+
+<pre class="language-lua"><code class="lang-lua"><strong>Symmetry:SetColors(Color.red)</strong></code></pre>
+
+
+
+
 ### Symmetry:SetColors(colors)
 
 Sets the list of symmetry pointer colors
@@ -315,6 +338,68 @@ Sets the list of symmetry pointer brushes
 #### Example
 
 <pre class="language-lua"><code class="lang-lua"><strong>Symmetry:SetBrushes({"Ink", "Marker"})</strong></code></pre>
+
+
+
+
+### Symmetry:SetColorOverrides(color)
+
+Sets the override color for all symmetry pointer brushes
+
+**Returns:** nil 
+
+
+**Parameters:**
+
+<table data-full-width="false">
+<thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+<tbody><tr><td>color</td><td><a href="color.md">Color</a></td><td></td><td>The color to set</td></tr></tbody></table>
+
+
+
+
+#### Example
+
+<pre class="language-lua"><code class="lang-lua"><strong>Symmetry:SetColorOverrides(Color.red)</strong></code></pre>
+
+
+
+
+### Symmetry:SetColorOverrideModes(mode)
+
+Sets the override color mode for all symmetry pointer brushes
+
+**Returns:** nil 
+
+
+**Parameters:**
+
+<table data-full-width="false">
+<thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+<tbody><tr><td>mode</td><td><a href="coloroverridemode.md">ColorOverrideMode</a></td><td></td><td>The mode to set</td></tr></tbody></table>
+
+
+
+
+#### Example
+
+<pre class="language-lua"><code class="lang-lua"><strong>Symmetry:SetColorOverrideModes(ColorOverrideMode.Blend)</strong></code></pre>
+
+
+
+
+### Symmetry:ClearColorOverrides()
+
+Clears the list of symmetry pointer override colors
+
+**Returns:** nil 
+
+
+
+
+#### Example
+
+<pre class="language-lua"><code class="lang-lua"><strong>Symmetry:ClearColorOverride()</strong></code></pre>
 
 
 
