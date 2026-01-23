@@ -124,7 +124,9 @@ Parameters = {
    - Draws strokes using explicit `Draw()` methods
 
 **Important Constraints**:
-- Brush type/size cannot change during a stroke (only between strokes). base color also cannot change but color overrides can be applied within a stroke.
+- Brush type cannot change during a stroke - only between strokes
+- Brush size cannot change during a stroke but modifying pressure within a stroke often affects size
+- Brush color cannot change during a stroke but color overrides can be applied within a stroke.
 - Understand coordinate spaces - default varies by plugin type (check Settings.space)
 - Transform scale component affects stroke width/thickness
 
