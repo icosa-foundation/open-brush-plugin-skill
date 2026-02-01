@@ -30,10 +30,14 @@ description="Some text description",  -- text description of the plugin
 space="pointer", --tells the plugin to use a coordinate space different to it's default
 }
 
---Exposes some parameters as sliders in the UI. Valid types are either float or int ONLY
+--Exposes some parameters as widgets in the UI. Valid types: float, int, color, toggle, text, list
 Parameters = {
 speed={label="Speed", type="float", min=1, max=1000, default=500},
-turns={label="Radius", type="int", min=1, max=10, default=5},
+turns={label="Turns", type="int", min=1, max=10, default=5},
+color={label="Color", type="color", default=Color.red},
+enabled={label="Enabled", type="toggle", default=true},
+name={label="Name", type="text", default="Untitled"},
+mode={label="Mode", type="list", items={"A", "B", "C"}, default="A"},
 }
 
 Any item defined in Parameters can be referenced in the script as a global variable. In the above example the two parameters are exposed in the script as Parameters.speed and Parameters.turns

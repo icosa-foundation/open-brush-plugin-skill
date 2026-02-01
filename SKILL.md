@@ -26,9 +26,14 @@ Settings = {
   description = "What this plugin does"
 }
 
--- Optional parameters (exposed as UI sliders)
+-- Optional parameters (exposed as UI widgets)
 Parameters = {
-  speed = {label = "Speed", type = "float", min = 1, max = 100, default = 50}
+  speed = {label = "Speed", type = "float", min = 1, max = 100, default = 50},
+  count = {label = "Count", type = "int", min = 1, max = 10, default = 5},
+  color = {label = "Color", type = "color", default = Color.red},
+  enabled = {label = "Enabled", type = "toggle", default = true},
+  name = {label = "Name", type = "text", default = "Untitled"},
+  mode = {label = "Mode", type = "list", items = {"A", "B", "C"}, default = "A"},
 }
 
 -- Main function (required) - runs every frame
@@ -96,9 +101,14 @@ Settings = {
 }
 
 Parameters = {
-  speed = {label = "Speed", type = "float", min = 1, max = 100, default = 50}
+  speed = {label = "Speed", type = "float", min = 1, max = 100, default = 50},
+  count = {label = "Count", type = "int", min = 1, max = 10, default = 5},
+  color = {label = "Color", type = "color", default = Color.red},
+  enabled = {label = "Enabled", type = "toggle", default = true},
+  name = {label = "Name", type = "text", default = "Untitled"},
+  mode = {label = "Mode", type = "list", items = {"A", "B", "C"}, default = "A"},
 }
--- Access as: Parameters.speed
+-- Access as: Parameters.speed, Parameters.count, etc.
 ```
 
 **Four Plugin Types**:
